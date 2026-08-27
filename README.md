@@ -197,24 +197,6 @@ The test script exercises:
 
 The script prints the HTTP status code and response for each test.
 
-### Test Output
-
-The following screenshot shows the API test script successfully exercising the required endpoints and validation/error-handling cases:
-
-![API Test Results](screenshots/api-tests.png)
-
-The output confirms:
-
-- GET `/tasks` → `200`
-- POST `/tasks` → `201`
-- PUT `/tasks/{id}` → `200`
-- DELETE `/tasks/{id}` → `200`
-- Empty title validation → `422`
-- Updating a non-existent task → `404`
-- Deleting a non-existent task → `404`
-
-**All API tests passed successfully.**
-
 ## Manual Swagger Testing
 
 Recommended order:
@@ -248,3 +230,4 @@ After confirming the final working version, create a release tag:
 git tag v1.0.0
 git push origin v1.0.0
 ```
+
