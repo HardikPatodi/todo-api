@@ -1,7 +1,7 @@
 from fastapi import FastAPI, HTTPException
 from starlette.middleware.cors import CORSMiddleware
 
-from database import init_db, get_all_tasks, create_task, get_task_by_id, update_task
+from database import init_db, get_all_tasks, create_task, get_task_by_id, update_task, delete_task
 from models import TaskCreate, TaskResponse, TaskUpdate
 
 # --- App setup ---
@@ -50,3 +50,18 @@ def edit_task(task_id: int, task: TaskUpdate):
         )
 
     return get_task_by_id(task_id)
+
+@app.delete("/tasks/{task_id}", response_model=TaskResponse)
+def remove_task(task_id: int):
+
+    task = get_task_by_id(task_id)
+
+    if task is None:
+        raise HTTPException(
+            status_code=404,
+            detail="Task not found"
+        )
+
+    delete_task(task_id)
+
+    return task
