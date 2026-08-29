@@ -1,4 +1,4 @@
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, field_validator
 
 class TaskCreate(BaseModel):
     """Schema for creating a new task (POST request body)."""
@@ -7,6 +7,13 @@ class TaskCreate(BaseModel):
         default="",
         description="Task description (optional)"
     )
+    
+    @field_validator('title')
+    @classmethod
+    def title_must_not_be_whitespace(cls, v):
+        if not v or v.strip() == '':
+            raise ValueError('title cannot be empty or whitespace only')
+        return v.strip()
 
 
 class TaskUpdate(BaseModel):
@@ -17,6 +24,13 @@ class TaskUpdate(BaseModel):
         description="Updated description (optional)"
     )
     completed: bool = Field(default=False, description="Whether the task is complete")
+    
+    @field_validator('title')
+    @classmethod
+    def title_must_not_be_whitespace(cls, v):
+        if not v or v.strip() == '':
+            raise ValueError('title cannot be empty or whitespace only')
+        return v.strip()
 
 
 class TaskResponse(BaseModel):

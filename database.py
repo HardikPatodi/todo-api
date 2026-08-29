@@ -19,7 +19,7 @@ def init_db():
                 id           INTEGER PRIMARY KEY AUTOINCREMENT,
                 title        TEXT    NOT NULL,
                 description  TEXT    DEFAULT '',
-                completed    INTEGER NOT NULL DEFAULT 0,
+                completed    INTEGER NOT NULL DEFAULT 0 CHECK (completed IN (0, 1)),
                 created_date TEXT    NOT NULL
             )
         """)
